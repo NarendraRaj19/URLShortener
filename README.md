@@ -8,5 +8,5 @@ To get a short URL for a given valid URL. On following the short url by appendin
 ### Example usage:  
 [base url]/api/shorturl  
 ### Example output:  
-{"original_url":"https://www.google.com","short_url":1}
-baseurl/api/shorturl/1 ==> Redirect to Google.com
+{"original_url":"https://www.google.com","short_url":1}  
+baseurl/api/shorturl/1 --> Redirect to Google.com
