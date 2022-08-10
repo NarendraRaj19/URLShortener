@@ -2,7 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-require('dotenv').config({ path: "./config.env" });
+//require('dotenv').config();
+const dotenv = require('dotenv')
+dotenv.config()
 //To Parse Request JSON
 var bodyParser = require('body-parser')
 //To Perform a lookup to validate a given URL
@@ -18,9 +20,10 @@ app.use(bodyParser.json());
 // Basic Configuration
 const port = process.env.PORT || 3000;
 //Database Connection
-let uri = 'mongodb+srv://narenrj:AtlasPassword@freecodecamp-backendapi.kuafusj.mongodb.net/?retryWrites=true&w=majority'
+let uri = process.env.uri
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 console.log("State of Mongoose: ",mongoose.connection.readyState);
+
 
 let Url = mongoose.model('Url', {
   original: { type: String },
@@ -43,6 +46,8 @@ app.get('/api/hello', function(req, res) {
 
 app.post('/api/shorturl', async function(req, res) {
   let originalUrl = req.body.url;
+
+  console.log("ENV File: ", process.env.PORT);
 
   const parsedUL = dns.lookup(urlparser.parse(originalUrl).hostname, function(err, address){
     if(!address){
