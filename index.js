@@ -51,7 +51,8 @@ app.post('/api/shorturl', async function(req, res) {
 
   const parsedUL = dns.lookup(urlparser.parse(originalUrl).hostname, function(err, address){
     if(!address){
-      res.json({"error":"Wrong format"});
+      res.json({error:"invalid url"});
+      
     } else {
       Url.findOne({original : originalUrl}, (err, docs) => {
         if(!docs){
@@ -81,7 +82,7 @@ app.get('/api/shorturl/:input', function(req, res) {
   //console.log("Provide Short URL: ", inputUrl);
   Url.findOne({shortURL : inputUrl}, (err, docs) => {
     if(!docs){
-      res.json({"error":"Wrong format"});
+      res.json({error:"invalid url"});
     } else {
       res.redirect(docs.original)
     }
